@@ -17,6 +17,10 @@ void MCP4822::init() {
     digitalWrite(cs, HIGH);
 }
 
+MCP4822::~MCP4822() {
+    SPI.end();
+}
+
 void MCP4822::setVoltage(uint16_t value, MCP4822Channel channel) {
     if (value > 4095) {
         value = 4095;

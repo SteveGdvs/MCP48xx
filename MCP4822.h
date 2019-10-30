@@ -16,10 +16,12 @@ class MCP4822 {
 
 private:
     const uint8_t cs;
-    uint16_t command[2]= {0};
+    uint16_t command[2] = {0};
 
 public:
     explicit MCP4822(uint8_t cs);
+
+    ~MCP4822();
 
     void init();
 
