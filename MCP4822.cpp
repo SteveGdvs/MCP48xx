@@ -2,8 +2,8 @@
 
 MCP4822::MCP4822(uint8_t cs) : cs(cs) {
     /* Setting channel bits*/
-    command[MCP4822Channel::A] = command[MCP4822Channel::A] | (1u << 15u);
-    command[MCP4822Channel::B] = command[MCP4822Channel::B] | (0u << 15u);
+    command[MCP4822Channel::A] = command[MCP4822Channel::A] | (0u << 15u);
+    command[MCP4822Channel::B] = command[MCP4822Channel::B] | (1u << 15u);
 
     turnOnChannel(MCP4822Channel::A);
     turnOnChannel(MCP4822Channel::B);
