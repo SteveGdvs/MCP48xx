@@ -49,6 +49,8 @@ public:
 
     void setGainB(MCP4822Gain gain);
 
+    void updateDAC();
+
 };
 
 

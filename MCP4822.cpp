@@ -77,3 +77,21 @@ void MCP4822::setGainA(MCP4822Gain gain) {
 void MCP4822::setGainB(MCP4822Gain gain) {
     command[MCP4822Channel::B] = command[MCP4822Channel::B] | (gain << 13u);
 }
+
+void MCP4822::updateDAC() {
+
+    /* begin transaction using maximum clock frequency of 20MHz */
+    SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE0));
+    digitalWrite(cs, LOW); //select device
+
+    SPI.transfer16(command[MCP4822Channel::A]);// sent command for the A channel
+
+    /*prepare the device to receive command for the B channel*/
+    digitalWrite(cs, HIGH);
+    digitalWrite(cs, LOW);
+
+    SPI.transfer16(command[MCP4822Channel::B]);// sent command for the B channel
+
+    digitalWrite(cs, HIGH); //deselect device
+    SPI.endTransaction();
+}
