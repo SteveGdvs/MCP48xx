@@ -4,15 +4,16 @@
 #include <Arduino.h>
 #include <SPI.h>
 
-enum MCP4822Channel : uint8_t {
-    A = 0u, B = 1u
-};
-enum MCP4822Gain : uint8_t {
-    High = 0u, Low = 1u
-};
 
 class MCP4822 {
 
+    enum Channel : uint8_t {
+        A = 0u, B = 1u
+    };
+
+    enum Gain : uint8_t {
+        High = 0u, Low = 1u
+    };
 
 private:
     const uint8_t cs;
@@ -25,29 +26,29 @@ public:
 
     void init();
 
-    void setVoltage(uint16_t value, MCP4822Channel channel);
+    void setVoltage(uint16_t value, Channel channel);
 
     void setVoltageA(uint16_t value);
 
     void setVoltageB(uint16_t value);
 
-    void shutdownChannel(MCP4822Channel channel);
+    void shutdownChannel(Channel channel);
 
     void shutdownChannelA();
 
     void shutdownChannelB();
 
-    void turnOnChannel(MCP4822Channel channel);
+    void turnOnChannel(Channel channel);
 
     void turnOnChannelA();
 
     void turnOnChannelB();
 
-    void setGain(MCP4822Gain gain, MCP4822Channel channel);
+    void setGain(Gain gain, Channel channel);
 
-    void setGainA(MCP4822Gain gain);
+    void setGainA(Gain gain);
 
-    void setGainB(MCP4822Gain gain);
+    void setGainB(Gain gain);
 
     void updateDAC();
 
