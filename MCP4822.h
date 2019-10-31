@@ -7,13 +7,6 @@
 
 class MCP4822 {
 
-    enum Channel : uint8_t {
-        A = 0u, B = 1u
-    };
-
-    enum Gain : uint8_t {
-        High = 0u, Low = 1u
-    };
 
 private:
     const uint8_t cs;
@@ -22,6 +15,15 @@ private:
     bool isBActive = false;
 
 public:
+
+    enum Channel : uint8_t {
+        A = 0u, B = 1u
+    };
+
+    enum Gain : uint8_t {
+        High = 0u, Low = 1u
+    };
+
     explicit MCP4822(uint8_t cs);
 
     ~MCP4822();
