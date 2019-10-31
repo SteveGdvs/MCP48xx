@@ -33,6 +33,11 @@ void MCP4822::setVoltageB(uint16_t value) {
 
 void MCP4822::shutdownChannel(Channel channel) {
     command[channel] = command[channel] | (0u << 12u);
+    if (channel == Channel::A) {
+        isAActive = false;
+    } else {
+        isBActive = false;
+    }
 }
 
 void MCP4822::shutdownChannelA() {
@@ -45,6 +50,11 @@ void MCP4822::shutdownChannelB() {
 
 void MCP4822::turnOnChannel(Channel channel) {
     command[channel] = command[channel] | (1u << 12u);
+    if (channel == Channel::A) {
+        isAActive = true;
+    } else {
+        isBActive = true;
+    }
 }
 
 void MCP4822::turnOnChannelA() {
@@ -71,16 +81,17 @@ void MCP4822::updateDAC() {
 
     /* begin transaction using maximum clock frequency of 20MHz */
     SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE0));
-    digitalWrite(cs, LOW); //select device
 
-    SPI.transfer16(command[Channel::A]);// sent command for the A channel
+    if (isAActive) {
+        digitalWrite(cs, LOW); //select device
+        SPI.transfer16(command[Channel::A]); // sent command for the A channel
+        digitalWrite(cs, HIGH); //deselect device
+    }
+    if (isBActive) {
+        digitalWrite(cs, LOW);
+        SPI.transfer16(command[Channel::B]); // sent command for the B channel
+        digitalWrite(cs, HIGH);
+    }
 
-    /*prepare the device to receive command for the B channel*/
-    digitalWrite(cs, HIGH);
-    digitalWrite(cs, LOW);
-
-    SPI.transfer16(command[Channel::B]);// sent command for the B channel
-
-    digitalWrite(cs, HIGH); //deselect device
     SPI.endTransaction();
 }
