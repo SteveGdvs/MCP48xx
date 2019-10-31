@@ -20,6 +20,7 @@ void MCP4822::setVoltage(uint16_t value, Channel channel) {
     if (value > 4095) {
         value = 4095;
     }
+    command[channel] = command[channel] & 0xF000u;
     command[channel] = command[channel] | value;
 }
 
