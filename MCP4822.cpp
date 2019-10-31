@@ -4,11 +4,6 @@ MCP4822::MCP4822(uint8_t cs) : cs(cs) {
     /* Setting channel bits*/
     command[Channel::A] = command[Channel::A] | (0u << 15u);
     command[Channel::B] = command[Channel::B] | (1u << 15u);
-
-    turnOnChannel(Channel::A);
-    turnOnChannel(Channel::B);
-    setGain(Gain::High, Channel::A);
-    setGain(Gain::High, Channel::B);
 }
 
 void MCP4822::init() {
