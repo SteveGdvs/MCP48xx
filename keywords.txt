@@ -1,0 +1,36 @@
+# Syntax Coloring Map For MCP4822 library
+###########################################
+
+# Datatypes (KEYWORD1)
+###########################################
+
+MCP4822	KEYWORD1
+Channel	KEYWORD1
+Gain	KEYWORD1
+
+
+# Methods (KEYWORD2)
+###########################################
+
+init	KEYWORD2
+setVoltage	KEYWORD2
+setVoltageA	KEYWORD2
+setVoltageB	KEYWORD2
+shutdownChannel	KEYWORD2
+shutdownChannelA    KEYWORD2
+shutdownChannelB	KEYWORD2
+turnOnChannel	KEYWORD2
+turnOnChannelA	KEYWORD2
+turnOnChannelB	KEYWORD2
+setGain	KEYWORD2
+setGainA	KEYWORD2
+setGainB	KEYWORD2
+updateDAC	KEYWORD2
+
+
+# Constants #
+#############
+A	LITERAL1
+B	LITERAL1
+High	LITERAL1
+Low	LITERAL1
