@@ -4,6 +4,8 @@
 ## Description
 This is a small and simple library to control the MCP48xx family of digital to analog converters (DACs) with an Arduino board.
 
+Currently it only works with the MCP4822 DAC.
+
 
 ## Installation
 
