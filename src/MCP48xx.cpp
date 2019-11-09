@@ -1,22 +1,22 @@
-#include "MCP4822.h"
+#include "MCP48xx.h"
 
-MCP4822::MCP4822(uint8_t cs) : cs(cs) {
+MCP48xx::MCP48xx(uint8_t cs) : cs(cs) {
     /* Setting channel bits*/
     command[Channel::A] = command[Channel::A] | (0u << 15u);
     command[Channel::B] = command[Channel::B] | (1u << 15u);
 }
 
-void MCP4822::init() {
+void MCP48xx::init() {
     SPI.begin();
     pinMode(cs, OUTPUT);
     digitalWrite(cs, HIGH);
 }
 
-MCP4822::~MCP4822() {
+MCP48xx::~MCP48xx() {
     SPI.end();
 }
 
-void MCP4822::setVoltage(uint16_t value, Channel channel) {
+void MCP48xx::setVoltage(uint16_t value, Channel channel) {
     if (value > 4095) {
         value = 4095;
     }
@@ -24,15 +24,15 @@ void MCP4822::setVoltage(uint16_t value, Channel channel) {
     command[channel] = command[channel] | value;
 }
 
-void MCP4822::setVoltageA(uint16_t value) {
+void MCP48xx::setVoltageA(uint16_t value) {
     setVoltage(value, Channel::A);
 }
 
-void MCP4822::setVoltageB(uint16_t value) {
+void MCP48xx::setVoltageB(uint16_t value) {
     setVoltage(value, Channel::B);
 }
 
-void MCP4822::shutdownChannel(Channel channel) {
+void MCP48xx::shutdownChannel(Channel channel) {
     command[channel] = command[channel] | (0u << 12u);
     if (channel == Channel::A) {
         isAActive = false;
@@ -41,15 +41,15 @@ void MCP4822::shutdownChannel(Channel channel) {
     }
 }
 
-void MCP4822::shutdownChannelA() {
+void MCP48xx::shutdownChannelA() {
     shutdownChannel(Channel::A);
 }
 
-void MCP4822::shutdownChannelB() {
+void MCP48xx::shutdownChannelB() {
     shutdownChannel(Channel::B);
 }
 
-void MCP4822::turnOnChannel(Channel channel) {
+void MCP48xx::turnOnChannel(Channel channel) {
     command[channel] = command[channel] | (1u << 12u);
     if (channel == Channel::A) {
         isAActive = true;
@@ -58,27 +58,27 @@ void MCP4822::turnOnChannel(Channel channel) {
     }
 }
 
-void MCP4822::turnOnChannelA() {
+void MCP48xx::turnOnChannelA() {
     turnOnChannel(Channel::A);
 }
 
-void MCP4822::turnOnChannelB() {
+void MCP48xx::turnOnChannelB() {
     turnOnChannel(Channel::B);
 }
 
-void MCP4822::setGain(Gain gain, Channel channel) {
+void MCP48xx::setGain(Gain gain, Channel channel) {
     command[channel] = command[channel] | (gain << 13u);
 }
 
-void MCP4822::setGainA(Gain gain) {
+void MCP48xx::setGainA(Gain gain) {
     setGain(gain, Channel::A);
 }
 
-void MCP4822::setGainB(Gain gain) {
+void MCP48xx::setGainB(Gain gain) {
     setGain(gain, Channel::B);
 }
 
-void MCP4822::updateDAC() {
+void MCP48xx::updateDAC() {
 
     /* begin transaction using maximum clock frequency of 20MHz */
     SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE0));

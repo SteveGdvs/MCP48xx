@@ -2,10 +2,10 @@
     This sketch demonstrates how we can output a value in channel A of the MCP4822.
 */
 
-#include <MCP4822.h>
+#include <MCP48xx.h>
 
 // Define the MCP4822 instance, giving it the SS (Slave Select) pin
-MCP4822 dac(10);
+MCP48xx dac(10);
 
 // We define an int variable to store the voltage in mV so 500mV = 0.5V
 int voltage = 500;

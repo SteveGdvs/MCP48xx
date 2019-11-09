@@ -3,10 +3,10 @@
     and cycle  through different values in a loop
 */
 
-#include <MCP4822.h>
+#include <MCP48xx.h>
 
 // Define the MCP4822 instance, giving it the SS (Slave Select) pin
-MCP4822 dac(10);
+MCP48xx dac(10);
 
 // We define an int variable to store the voltage in mV
 int voltage = 100;

@@ -1,10 +1,10 @@
-# Syntax Coloring Map For MCP4822 library
+# Syntax Coloring Map For MCP48xx library
 ###########################################
 
 # Datatypes (KEYWORD1)
 ###########################################
 
-MCP4822	KEYWORD1
+MCP48xx	KEYWORD1
 Channel	KEYWORD1
 Gain	KEYWORD1
 

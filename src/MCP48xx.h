@@ -1,11 +1,11 @@
-#ifndef MCP4822_LIB_MCP4822_H
-#define MCP4822_LIB_MCP4822_H
+#ifndef MCP48XX_LIB_MCP48XX_H
+#define MCP48XX_LIB_MCP48XX_H
 
 #include <Arduino.h>
 #include <SPI.h>
 
 
-class MCP4822 {
+class MCP48xx {
 
 
 private:
@@ -24,9 +24,9 @@ public:
         High = 0u, Low = 1u
     };
 
-    explicit MCP4822(uint8_t cs);
+    explicit MCP48xx(uint8_t cs);
 
-    ~MCP4822();
+    ~MCP48xx();
 
     void init();
 
@@ -59,4 +59,4 @@ public:
 };
 
 
-#endif //MCP4822_LIB_MCP4822_H
+#endif //MCP48XX_LIB_MCP48XX_H

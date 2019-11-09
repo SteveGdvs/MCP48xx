@@ -1,8 +1,8 @@
-# Arduino MCP4822 Library
+# Arduino MCP48xx Library
 
 
 ## Description
-This is a small and simple library to control the [MCP4822](https://www.microchip.com/wwwproducts/en/MCP4822) 12-bit SPI dual digital to analog converter (DAC) with an Arduino board.
+This is a small and simple library to control the MCP48xx family of digital to analog converters (DACs) with an Arduino board.
 
 
 ## Installation
