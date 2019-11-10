@@ -21,5 +21,10 @@ You can find more information on installing Arduino libraries [here](https://www
 This library depends on the standard [SPI](https://www.arduino.cc/en/Reference/SPI) library.
 
 
+## Changelog
+
+[Changelog](CHANGELOG.md)
+
+
 ## Licensing
 The code in this project is licensed under MIT license.
