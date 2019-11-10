@@ -6,11 +6,12 @@ MCP48xx<BITS_RES>::MCP48xx(uint8_t cs) : cs(cs) {
     /* Setting channel bits*/
     command[Channel::A] = command[Channel::A] | (0u << 15u);
     command[Channel::B] = command[Channel::B] | (1u << 15u);
+
+    SPI.begin();
 }
 
 template<uint8_t BITS_RES>
 void MCP48xx<BITS_RES>::init() {
-    SPI.begin();
     pinMode(cs, OUTPUT);
     digitalWrite(cs, HIGH);
 }
