@@ -5,6 +5,9 @@
 ###########################################
 
 MCP48xx	KEYWORD1
+MCP4822	KEYWORD1
+MCP4812	KEYWORD1
+MCP4802	KEYWORD1
 Channel	KEYWORD1
 Gain	KEYWORD1
 
