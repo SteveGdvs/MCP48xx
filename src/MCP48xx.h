@@ -5,6 +5,7 @@
 #include <SPI.h>
 
 
+template<uint8_t BITS_RES>
 class MCP48xx {
 
 
@@ -58,5 +59,8 @@ public:
 
 };
 
+typedef MCP48xx<12> MCP4822;
+typedef MCP48xx<10> MCP4812;
+typedef MCP48xx<8> MCP4802;
 
 #endif //MCP48XX_LIB_MCP48XX_H

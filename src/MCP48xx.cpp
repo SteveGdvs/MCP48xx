@@ -1,38 +1,48 @@
 #include "MCP48xx.h"
 
-MCP48xx::MCP48xx(uint8_t cs) : cs(cs) {
+
+template<uint8_t BITS_RES>
+MCP48xx<BITS_RES>::MCP48xx(uint8_t cs) : cs(cs) {
     /* Setting channel bits*/
     command[Channel::A] = command[Channel::A] | (0u << 15u);
     command[Channel::B] = command[Channel::B] | (1u << 15u);
 }
 
-void MCP48xx::init() {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::init() {
     SPI.begin();
     pinMode(cs, OUTPUT);
     digitalWrite(cs, HIGH);
 }
 
-MCP48xx::~MCP48xx() {
+template<uint8_t BITS_RES>
+MCP48xx<BITS_RES>::~MCP48xx() {
     SPI.end();
 }
 
-void MCP48xx::setVoltage(uint16_t value, Channel channel) {
-    if (value > 4095) {
-        value = 4095;
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::setVoltage(uint16_t value, Channel channel) {
+    if (value > (1u << BITS_RES) - 1) {
+        value = (1u << BITS_RES) - 1;
+    } else {
+        value = value >> (12u - BITS_RES);
     }
     command[channel] = command[channel] & 0xF000u;
     command[channel] = command[channel] | value;
 }
 
-void MCP48xx::setVoltageA(uint16_t value) {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::setVoltageA(uint16_t value) {
     setVoltage(value, Channel::A);
 }
 
-void MCP48xx::setVoltageB(uint16_t value) {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::setVoltageB(uint16_t value) {
     setVoltage(value, Channel::B);
 }
 
-void MCP48xx::shutdownChannel(Channel channel) {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::shutdownChannel(Channel channel) {
     command[channel] = command[channel] | (0u << 12u);
     if (channel == Channel::A) {
         isAActive = false;
@@ -41,15 +51,18 @@ void MCP48xx::shutdownChannel(Channel channel) {
     }
 }
 
-void MCP48xx::shutdownChannelA() {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::shutdownChannelA() {
     shutdownChannel(Channel::A);
 }
 
-void MCP48xx::shutdownChannelB() {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::shutdownChannelB() {
     shutdownChannel(Channel::B);
 }
 
-void MCP48xx::turnOnChannel(Channel channel) {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::turnOnChannel(Channel channel) {
     command[channel] = command[channel] | (1u << 12u);
     if (channel == Channel::A) {
         isAActive = true;
@@ -58,27 +71,34 @@ void MCP48xx::turnOnChannel(Channel channel) {
     }
 }
 
-void MCP48xx::turnOnChannelA() {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::turnOnChannelA() {
     turnOnChannel(Channel::A);
 }
 
-void MCP48xx::turnOnChannelB() {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::turnOnChannelB() {
     turnOnChannel(Channel::B);
 }
 
-void MCP48xx::setGain(Gain gain, Channel channel) {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::setGain(Gain gain, Channel channel) {
     command[channel] = command[channel] | (gain << 13u);
 }
 
-void MCP48xx::setGainA(Gain gain) {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::setGainA(Gain gain) {
     setGain(gain, Channel::A);
 }
 
-void MCP48xx::setGainB(Gain gain) {
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::setGainB(Gain gain) {
     setGain(gain, Channel::B);
 }
 
-void MCP48xx::updateDAC() {
+
+template<uint8_t BITS_RES>
+void MCP48xx<BITS_RES>::updateDAC() {
 
     /* begin transaction using maximum clock frequency of 20MHz */
     SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE0));
