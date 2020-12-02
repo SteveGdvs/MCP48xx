@@ -91,7 +91,7 @@ void MCP48xx<BITS_RES>::setVoltage(uint16_t value, Channel channel) {
     if (value > (1u << BITS_RES) - 1) {
         value = (1u << BITS_RES) - 1;
     } else {
-        value = value >> (12u - BITS_RES);
+        value = value << (12u - BITS_RES);
     }
     command[channel] = command[channel] & 0xF000u;
     command[channel] = command[channel] | value;
